@@ -38,8 +38,6 @@ The scripts are organized according to the order in which they were used during 
 
 ## Notes
 
-## Notes
-
 The scripts are written as SLURM batch scripts for execution on an HPC system. Input and output paths, computational resources, and scheduler directives may require modification for other computing systems.
 
 ## Citation
