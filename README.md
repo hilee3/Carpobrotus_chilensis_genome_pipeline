@@ -30,7 +30,7 @@ This repository contains the scripts used to assemble, evaluate, and annotate th
 
 ## Requirements
 
-Software requirements and input files are listed in the header of each script.
+Software requirements, input files, and computational resource specifications are listed in the header of each script.
 
 ## Repository Organization
 
@@ -38,7 +38,9 @@ The scripts are organized according to the order in which they were used during 
 
 ## Notes
 
-These scripts document the analysis workflow used for the Carpobrotus chilensis genome project. Input and output paths, computational resources, and software environments should be modified as needed for other datasets or computing systems.
+## Notes
+
+The scripts are written as SLURM batch scripts for execution on an HPC system. Input and output paths, computational resources, and scheduler directives may require modification for other computing systems.
 
 ## Citation
 
