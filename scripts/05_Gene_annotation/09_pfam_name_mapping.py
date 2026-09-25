@@ -11,6 +11,8 @@ import urllib.error
 # Inputs
 # -----------------------------
 
+# Input table containing the historical Pfam domains reported by
+# Piriyapongsa et al. (2007). Required columns: "Accession" and "ID".
 input_file = "/path/to/Piriyapongsa_2007_124_TE_associated_Pfam_domains.tsv"
 output_file = "/path/to/Piriyapongsa_Pfam_name_mapping.tsv"
 

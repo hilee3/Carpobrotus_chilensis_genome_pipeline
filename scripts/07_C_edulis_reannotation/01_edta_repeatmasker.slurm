@@ -18,7 +18,7 @@ ulimit -n 65535
 # Inputs
 # -----------------------------
 
-GENOME_SRC="/path/to/unmasked_nuclear_only.fa"
+GENOME_SRC="/path/to/edulis_unmasked_nuclear_only.fa"
 WORKDIR="/path/to/output/edulis_edta"
 
 THREADS="${SLURM_CPUS_PER_TASK:-16}"

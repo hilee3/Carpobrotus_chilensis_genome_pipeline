@@ -14,7 +14,7 @@ set -euo pipefail
 CHILENSIS_PROTEIN="/path/to/braker.g103t2_removed.longest_isoform.gffread.aa"
 EDULIS_PROTEIN="/path/to/braker.longest_isoform.gffread.aa"
 
-WORK_DIR="/path/to/orthology_analysis"
+WORK_DIR="/path/to/genome_comparison"
 PROTEOME_DIR="${WORK_DIR}/proteomes"
 
 mkdir -p "${PROTEOME_DIR}"

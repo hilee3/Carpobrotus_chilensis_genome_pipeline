@@ -11,7 +11,7 @@
 # De novo assembly of the C. chilensis PacBio HiFi reads using hifiasm.
 # Replace the input path below with the local path to the HiFi FASTQ file.
 
-READS="/path/to/m84066_241205_191147_s1.fastq"
+READS="/path/to/pacbio_hifi_reads.fastq"
 PREFIX="chilensis_assembly_l0_031025.asm"
 
 hifiasm \

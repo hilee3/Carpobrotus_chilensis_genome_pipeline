@@ -209,14 +209,3 @@ ggsave(
   height = 7,
   dpi = 300
 )
-
-ggsave(
-  file.path(
-    OUTDIR,
-    "GO_fold_enrichment_dotplot.svg"
-  ),
-  p,
-  width = 10,
-  height = 7,
-  device = svglite::svglite
-)
