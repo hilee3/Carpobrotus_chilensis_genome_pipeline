@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=merqury
 #SBATCH --output=merqury.%j.out
 #SBATCH --error=merqury.%j.err

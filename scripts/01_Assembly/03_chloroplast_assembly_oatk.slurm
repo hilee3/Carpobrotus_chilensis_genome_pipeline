@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=oatk_plastid
 #SBATCH --output=oatk_plastid_%j.out
 #SBATCH --error=oatk_plastid_%j.err

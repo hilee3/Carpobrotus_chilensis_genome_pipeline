@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=btk_cov
 #SBATCH --output=btk_cov_%j.out
 #SBATCH --error=btk_cov_%j.err

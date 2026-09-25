@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=braker_edulis_etp
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G

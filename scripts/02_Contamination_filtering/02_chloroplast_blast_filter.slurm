@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=chloroplast_blast_filter
 #SBATCH --output=chloroplast_blast_filter_%j.out
 #SBATCH --error=chloroplast_blast_filter_%j.err

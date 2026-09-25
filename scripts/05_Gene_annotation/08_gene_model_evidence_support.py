@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 gtf_file = "/path/to/braker.gtf"
 hints_file = "/path/to/hintsfile.gff"
 

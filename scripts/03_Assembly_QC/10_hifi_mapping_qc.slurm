@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=hifi_qc
 #SBATCH --output=hifi_qc_%j.out
 #SBATCH --error=hifi_qc_%j.err

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Build a meryl k-mer database from PacBio HiFi reads for
 # Merqury genome assembly evaluation.

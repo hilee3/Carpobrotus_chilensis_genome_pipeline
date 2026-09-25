@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=hifi_cov_thresholds
 #SBATCH --output=hifi_cov_thresholds_%j.out
 #SBATCH --error=hifi_cov_thresholds_%j.err

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=hisat2_edulis_144
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G

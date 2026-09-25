@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=LAI
 #SBATCH --output=LAI_%j.out
 #SBATCH --error=LAI_%j.err

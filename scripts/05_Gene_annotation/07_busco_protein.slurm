@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=busco_protein
 #SBATCH --output=busco_protein_%j.out
 #SBATCH --error=busco_protein_%j.err

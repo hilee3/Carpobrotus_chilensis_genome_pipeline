@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=quast
 #SBATCH --output=quast.%j.out
 #SBATCH --error=quast.%j.err

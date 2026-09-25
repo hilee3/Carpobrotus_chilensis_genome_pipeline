@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=btk_create
 #SBATCH --output=btk_create_%j.out
 #SBATCH --error=btk_create_%j.err

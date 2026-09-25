@@ -17,7 +17,7 @@ This repository contains the scripts used for assembly, quality assessment, and 
   * Repeat annotation with EDTA, genome soft-masking with RepeatMasker, and assessment of repeat-space assembly quality using the LTR Assembly Index (LAI).
 
 * **05_Gene_annotation**
-  * RNA-seq alignment with HISAT2, gene prediction with BRAKER3, longest-isoform selection with AGAT, protein and CDS extraction with gffread, and annotation statistics.
+  * RNA-seq read preprocessing with fastp, alignment with HISAT2, gene prediction with BRAKER3, longest-isoform selection with AGAT, protein and CDS extraction with gffread, and annotation statistics.
   * Additional annotation-quality assessments include protein-mode BUSCO analysis, quantification of RNA-seq and protein evidence support for multi-exon gene models, overlap between predicted gene models and annotated transposable elements, and screening of predicted proteins for TE-associated Pfam annotations.
 
 * **06_Functional_annotation**
@@ -38,7 +38,7 @@ This repository contains the scripts used for assembly, quality assessment, and 
 
 ## Notes
 
-Scripts are provided in the form used for the analyses, with local file paths replaced by generic placeholders where appropriate. Most computationally intensive analyses were run as SLURM batch jobs on an HPC system. Additional Bash, Python, and R scripts were used for data processing, filtering, statistical analysis, and visualization.
+Scripts are based on those used for the analyses, with local file paths replaced by generic placeholders where appropriate. Most computationally intensive analyses were run as SLURM batch jobs on an HPC system. Additional Bash, Python, and R scripts were used for data processing, filtering, statistical analysis, and visualization.
 
 Input and output paths, computational resources, software environments, and scheduler directives may require modification for use on other computing systems.
 

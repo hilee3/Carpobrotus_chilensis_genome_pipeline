@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=TE_gene_overlap
 #SBATCH --output=TE_gene_overlap_%j.out
 #SBATCH --error=TE_gene_overlap_%j.err

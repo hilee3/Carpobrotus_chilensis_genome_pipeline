@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=kaks_serial
 #SBATCH --output=kaks_serial_%j.out
 #SBATCH --error=kaks_serial_%j.err

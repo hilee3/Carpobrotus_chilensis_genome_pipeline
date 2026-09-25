@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=eggnog_edulis
 #SBATCH --cpus-per-task=24
 #SBATCH --mem=64G

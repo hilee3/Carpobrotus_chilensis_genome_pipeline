@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=orthofinder
 #SBATCH --output=orthofinder_%j.out
 #SBATCH --error=orthofinder_%j.err

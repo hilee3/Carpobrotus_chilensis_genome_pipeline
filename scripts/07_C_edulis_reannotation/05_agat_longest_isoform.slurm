@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=agat_longest_edulis
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8G

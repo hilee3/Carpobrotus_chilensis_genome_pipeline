@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=busco
 #SBATCH --output=busco.%j.out
 #SBATCH --error=busco.%j.err

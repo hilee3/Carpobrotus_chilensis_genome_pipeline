@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=btk_snail
 #SBATCH --output=btk_snail_%j.out
 #SBATCH --error=btk_snail_%j.err

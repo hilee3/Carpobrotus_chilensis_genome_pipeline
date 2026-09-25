@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=filter_kaks_qc
 #SBATCH --output=filter_kaks_qc_%j.out
 #SBATCH --error=filter_kaks_qc_%j.err

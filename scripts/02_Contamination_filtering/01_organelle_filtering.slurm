@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=organelle_filtering
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

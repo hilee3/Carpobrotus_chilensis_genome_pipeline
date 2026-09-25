@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=hifi_mapping
 #SBATCH --output=hifi_mapping_%j.out
 #SBATCH --error=hifi_mapping_%j.err

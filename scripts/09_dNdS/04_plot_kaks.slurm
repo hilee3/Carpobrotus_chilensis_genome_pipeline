@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=plot_kaks
 #SBATCH --output=plot_kaks_%j.out
 #SBATCH --error=plot_kaks_%j.err

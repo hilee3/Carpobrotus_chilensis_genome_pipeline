@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=purge_dups
 #SBATCH --output=purge_dups.%j.out
 #SBATCH --error=purge_dups.%j.err
