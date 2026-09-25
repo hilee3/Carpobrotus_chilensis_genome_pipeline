@@ -14,9 +14,9 @@ set -euo pipefail
 # Edit these paths before running.
 BRAKER_DIR="/path/to/braker3_output"
 
-# Curated BRAKER3 annotation.
-# One transcript model (g103.t2) containing an internal stop codon
-# was removed prior to longest isoform selection.
+# BRAKER3 annotation used for longest-isoform selection.
+# Transcript g103.t2 was removed prior to longest-isoform selection
+# because of an internal-stop issue.
 GFF3="${BRAKER_DIR}/braker.g103t2_removed.gff3"
 OUT="${BRAKER_DIR}/braker.g103t2_removed.longest_isoform.agat.gff3"
 

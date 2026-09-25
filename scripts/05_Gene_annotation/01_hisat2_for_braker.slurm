@@ -12,7 +12,7 @@ set -euo pipefail
 # Inputs
 # -----------------------------
 # Edit these paths before running.
-GENOME="/path/to/softmasked_genome.fa"
+GENOME="/path/to/assembly_split.softmasked.fa"
 
 READ1="/path/to/sample_R1.trimmed.fastq.gz"
 READ2="/path/to/sample_R2.trimmed.fastq.gz"
@@ -24,10 +24,10 @@ THREADS="${SLURM_CPUS_PER_TASK:-16}"
 INDEX_PREFIX="${OUTDIR}/genome_hisat2_index"
 
 # -----------------------------
-# Environment
+# Software requirements
 # -----------------------------
-#   HISAT2
-#   samtools
+# HISAT2
+# samtools
 
 # -----------------------------
 # Checks
@@ -55,7 +55,6 @@ fi
 
 # -----------------------------
 # Align RNA-seq reads
-# --dta is suitable for transcriptome assembly and gene prediction workflows
 # -----------------------------
 echo "[INFO] Running HISAT2"
 
@@ -101,7 +100,6 @@ samtools view -H "${PREFIX}.sorted.bam" > "${PREFIX}.header.txt"
 echo "[INFO] Saving first 200 alignments for inspection"
 samtools view "${PREFIX}.sorted.bam" | head -n 200 > "${PREFIX}.first200.txt" || true
 
-# Remove SAM to save space
 rm -f "${PREFIX}.sam"
 
 echo "[INFO] Done"

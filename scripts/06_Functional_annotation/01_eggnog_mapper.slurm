@@ -13,9 +13,9 @@ set -euo pipefail
 # -----------------------------
 # Edit these paths before running.
 
-# Longest-isoform protein FASTA generated from the curated BRAKER3 annotation.
-# One transcript model (g103.t2) containing an internal stop codon
-# was removed prior to longest isoform selection.
+# Longest-isoform protein FASTA generated from the BRAKER3 annotation.
+# Transcript g103.t2 was removed prior to longest-isoform selection
+# because of an internal-stop issue.
 INPUT_FASTA="/path/to/braker.g103t2_removed.longest_isoform.gffread.aa"
 
 # Output prefix. The parent directory will be created if it does not exist.

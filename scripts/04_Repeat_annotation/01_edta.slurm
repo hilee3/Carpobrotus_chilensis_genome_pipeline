@@ -7,35 +7,27 @@
 #SBATCH --error=edta_repeat_annotation.%j.err
 
 set -euo pipefail
+ulimit -n 65535
 
 # -----------------------------
 # Inputs
 # -----------------------------
 # Edit these paths before running.
 WORKDIR="/path/to/output/edta"
-GENOME_SRC="/path/to/genome.fa"
-CDS_FASTA="/path/to/predicted_cds.fa"
+GENOME_SRC="/path/to/assembly_split.fa"
+CDS_FASTA="/path/to/braker.longest_isoform.gffread.cds.fa"
 
 THREADS="${SLURM_CPUS_PER_TASK:-16}"
 SPECIES="others"
 
-# Optional scratch directory.
+# Scratch directory
 SCRATCH_BASE="${SCRATCH:-/scratch/$USER}"
-
-# Keep scratch directory after completion? yes/no
-KEEP_SCRATCH="no"
-
-# Create a tar.gz archive of the full run directory? yes/no
-MAKE_ARCHIVE="no"
 
 # -----------------------------
 # Software requirements
 # -----------------------------
-# Activate an environment containing:
-#   EDTA (v2.2.2)
-#   RepeatMasker
-
-# All dependencies required by EDTA should be available in PATH.
+# EDTA (v2.2.2)
+# RepeatMasker
 
 # -----------------------------
 # Scratch workspace
@@ -47,9 +39,11 @@ TMP="${RUN}/tmp"
 mkdir -p "$WORK" "$TMP" "$WORKDIR"
 export TMPDIR="$TMP"
 
+# Put input genome in scratch because EDTA writes outputs
+# next to the genome file.
 cp "$GENOME_SRC" "$WORK/genome.fa"
 
-# Save a copy of this script for reproducibility
+# Save a copy of this script for reproducibility.
 cp "$0" "$WORKDIR/$(basename "$0")"
 
 echo "[INFO] Starting EDTA in scratch: $WORK"
@@ -90,7 +84,8 @@ if [[ -n "${TELIB:-}" && -s "$TELIB" ]]; then
     > RepeatMasker.stdout.log \
     2> RepeatMasker.stderr.log
 else
-  echo "[WARN] No EDTA TElib found. Skipping RepeatMasker softmask step." | tee RepeatMasker.stderr.log
+  echo "[WARN] No EDTA TElib found. Skipping RepeatMasker softmask step." \
+    | tee RepeatMasker.stderr.log
 fi
 
 # -----------------------------
@@ -126,27 +121,15 @@ for pat in "${ARTIFACTS[@]}"; do
   done
 done
 
+# Friendlier softmasked filename
 if [[ -s "genome.fa.masked" ]]; then
   cp -f "genome.fa.masked" "${WORKDIR}/${ROOT}.softmasked.fa"
 fi
 
 # -----------------------------
-# Archive full run
+# Scratch cleanup
 # -----------------------------
-if [[ "$MAKE_ARCHIVE" == "yes" ]]; then
-  echo "[INFO] Creating archive of full run directory"
-  cd "$RUN"
-  tar -czf "${WORKDIR}/EDTA_full_run_${SLURM_JOB_ID:-manual}.tar.gz" run
-fi
-
-# -----------------------------
-# Scratch cleanup policy
-# -----------------------------
-if [[ "$KEEP_SCRATCH" == "yes" ]]; then
-  echo "[INFO] Scratch retained at: $RUN"
-else
-  echo "[INFO] Cleaning scratch: $RUN"
-  rm -rf "$RUN"
-fi
+echo "[INFO] Cleaning scratch: $RUN"
+rm -rf "$RUN"
 
 echo "[INFO] Done."

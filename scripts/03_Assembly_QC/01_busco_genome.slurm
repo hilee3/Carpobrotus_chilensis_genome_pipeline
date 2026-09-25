@@ -3,14 +3,14 @@
 #SBATCH --output=busco.%j.out
 #SBATCH --error=busco.%j.err
 #SBATCH --time=08:00:00
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=8G
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=64G
 
 # -----------------------------
 # Inputs
 # -----------------------------
-# Edit these paths before running.
-ASSEMBLY="/path/to/final_nuclear_assembly.fa"
+# Final nuclear assembly
+ASSEMBLY="/path/to/assembly_split.fa"
 
 # BUSCO lineage
 LINEAGE="eudicotyledons_odb12"
@@ -19,10 +19,8 @@ LINEAGE="eudicotyledons_odb12"
 OUT_PREFIX="busco"
 
 # -----------------------------
-# Software requirements
+# Run BUSCO
 # -----------------------------
-# BUSCO
-
 busco \
     -i "${ASSEMBLY}" \
     -l "${LINEAGE}" \

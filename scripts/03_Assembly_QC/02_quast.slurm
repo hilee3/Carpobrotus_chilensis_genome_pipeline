@@ -11,8 +11,8 @@ set -euo pipefail
 # -----------------------------
 # Inputs
 # -----------------------------
-# Edit these paths before running.
-ASSEMBLY="/path/to/final_nuclear_assembly.fa"
+# Final nuclear assembly
+ASSEMBLY="/path/to/assembly_split.fa"
 OUTDIR="quast_results"
 
 # -----------------------------

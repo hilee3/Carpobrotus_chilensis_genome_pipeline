@@ -12,9 +12,9 @@ set -euo pipefail
 # Inputs
 # -----------------------------
 # Edit these paths before running.
-GENOME="/path/to/softmasked_genome.fa"
-BAM="/path/to/rnaseq.sorted.bam"
-PROT_SEQ="/path/to/protein_database.fa"
+GENOME="/path/to/assembly_split.softmasked.fa"
+BAM="/path/to/sample.sorted.bam"
+PROT_SEQ="/path/to/Viridiplantae_plus_edulis_nr95.fa"
 FINAL_OUT="/path/to/output/braker3"
 
 # Keep species name stable unless you intentionally want a new training set every run

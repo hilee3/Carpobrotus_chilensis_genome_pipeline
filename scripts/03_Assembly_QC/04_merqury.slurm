@@ -14,9 +14,8 @@ set -euo pipefail
 # -----------------------------
 # Inputs
 # -----------------------------
-# Edit these paths before running.
-MERYL_DB="/path/to/pacbio_reads.meryl"
-ASSEMBLY="/path/to/final_nuclear_assembly.fa"
+MERYL_DB="/path/to/pacbio.meryl"
+ASSEMBLY="/path/to/assembly_split.fa"
 
 OUT_PREFIX="merqury"
 WORKDIR="merqury_results"

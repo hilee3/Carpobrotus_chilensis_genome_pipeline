@@ -20,20 +20,20 @@ set -euo pipefail
 #   - query coverage >= 99
 #
 # Input:
-#   - nuclear assembly after chloroplast mapping filter
+#   - organelle-filtered nuclear assembly (nuclear_cleaned_v2.fa)
 #   - assembled chloroplast genome
 #
 # Output:
 #   - BLASTN table
 #   - list of removed contigs
-#   - final filtered nuclear assembly
+#   - filtered nuclear assembly
 
 # -----------------------------
 # Inputs
 # -----------------------------
 # Edit these paths before running.
 CP_FASTA="/path/to/assembled_chloroplast_genome.fa"
-NUC_FASTA="/path/to/nuclear_cleaned_v3.fa"
+NUC_FASTA="/path/to/nuclear_cleaned_v2.fa"
 
 PREFIX="cp_cov_filter"
 THREADS="${SLURM_CPUS_PER_TASK:-16}"

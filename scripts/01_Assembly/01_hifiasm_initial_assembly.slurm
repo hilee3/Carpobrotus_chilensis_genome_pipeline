@@ -1,32 +1,20 @@
-#!/usr/bin/env bash
-#SBATCH --job-name=hifiasm_chilensis
+#!/bin/bash
+
+#SBATCH --job-name=Hifiasm_chilensis
 #SBATCH --time=10-01:00:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=64G
-#SBATCH --output=hifiasm_chilensis.out
-#SBATCH --error=hifiasm_chilensis.err
+#SBATCH --output=Hifiasm_chilensis.out
+#SBATCH --error=Hifiasm_chilensis.err
 
-set -euo pipefail
+# De novo assembly of the C. chilensis PacBio HiFi reads using hifiasm.
+# Replace the input path below with the local path to the HiFi FASTQ file.
 
-# Generate a de novo genome assembly of Carpobrotus chilensis
-# from PacBio HiFi reads using hifiasm.
-
-# -----------------------------
-# Inputs
-# -----------------------------
-# Edit these paths before running.
-READS="/path/to/pacbio_hifi_reads.fastq.gz"
+READS="/path/to/m84066_241205_191147_s1.fastq"
 PREFIX="chilensis_assembly_l0_031025.asm"
-
-THREADS="${SLURM_CPUS_PER_TASK:-32}"
-
-# -----------------------------
-# Software requirements
-# -----------------------------
-# hifiasm must be available in PATH.
 
 hifiasm \
     -o "${PREFIX}" \
-    -t "${THREADS}" \
+    -t 32 \
     "${READS}"

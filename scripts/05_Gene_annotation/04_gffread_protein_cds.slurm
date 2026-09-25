@@ -13,15 +13,15 @@ set -euo pipefail
 # -----------------------------
 # Edit these paths before running.
 BRAKER_DIR="/path/to/braker3_output"
-GENOME_FA="/path/to/softmasked_genome.fa"
+GENOME_FA="/path/to/assembly_split.softmasked.fa"
 
-# Curated longest-isoform BRAKER3 annotation.
-# One transcript model (g103.t2) containing an internal stop codon
-# was removed prior to longest isoform selection.
+# Longest-isoform BRAKER3 annotation used for sequence extraction.
+# Transcript g103.t2 was removed prior to longest-isoform selection
+# because of an internal-stop issue.
 GFF3="${BRAKER_DIR}/braker.g103t2_removed.longest_isoform.agat.gff3"
 
-OUT_AA="${BRAKER_DIR}/braker.longest_isoform.aa"
-OUT_CDS="${BRAKER_DIR}/braker.longest_isoform.cds.fa"
+OUT_AA="${BRAKER_DIR}/braker.g103t2_removed.longest_isoform.gffread.aa"
+OUT_CDS="${BRAKER_DIR}/braker.g103t2_removed.longest_isoform.gffread.cds.fa"
 
 # -----------------------------
 # Software requirements
@@ -34,12 +34,12 @@ command -v gffread >/dev/null || {
 }
 
 [[ -r "$GENOME_FA" ]] || {
-    echo "[ERR] Genome FASTA not found"
+    echo "[ERR] Genome FASTA not found: $GENOME_FA"
     exit 1
 }
 
 [[ -r "$GFF3" ]] || {
-    echo "[ERR] GFF3 not found"
+    echo "[ERR] GFF3 not found: $GFF3"
     exit 1
 }
 

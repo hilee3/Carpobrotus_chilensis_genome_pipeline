@@ -18,7 +18,8 @@ set -euo pipefail
 # derived contigs from the purge_dups-filtered primary assembly.
 #
 # Criteria:
-#   1. Alignment coverage to plastid or mitochondrial reference >= 0.50
+#   1. Summed BLAST alignment-length ratio to plastid or
+#      mitochondrial reference >= 0.50
 #   2. Per-contig sequencing depth >= 3x the nuclear median depth
 #   3. Sequencing-depth ratio relative to organelle references:
 #        plastid >= 0.10
@@ -27,6 +28,10 @@ set -euo pipefail
 # Organelle references:
 #   Plastid and mitochondrial sequences from the Carpobrotus edulis
 #   reference assembly, NCBI assembly GCA_965788445.1.
+#
+# The BLAST alignment-length ratio is calculated as the summed
+# BLAST HSP alignment length divided by contig length. Because
+# overlapping HSPs are summed, this ratio can exceed 1.0.
 
 # -----------------------------
 # Inputs
@@ -63,6 +68,7 @@ REMOVAL_MODE="remove"
 # BLAST+
 # seqtk
 # python3
+# pandas
 
 # -----------------------------
 # Check dependencies
@@ -155,23 +161,40 @@ D_NUC=$(cat D_nuc.txt)
 
 echo "[STEP 2] Calculating plastid and mitochondrial read depth"
 
-minimap2 ${MAP_PRESET} -t "${THREADS}" "${CHLORO}" "${READS}" \
-    | samtools sort -@ "${THREADS}" -o plastid.bam
+# Combine plastid and mitochondrial references, as in the
+# executed analysis.
+cat "${CHLORO}" "${MITO}" > org_refs.fa
 
-samtools index plastid.bam
+PLASTID_ID=$(grep "^>" "${CHLORO}" | head -1 | sed 's/>//' | awk '{print $1}')
 
-samtools depth -a plastid.bam \
-    | awk '{sum+=$3; n++} END{print sum/n}' \
-    > D_plastid.txt
+echo "[INFO] Plastid reference ID: ${PLASTID_ID}"
 
-minimap2 ${MAP_PRESET} -t "${THREADS}" "${MITO}" "${READS}" \
-    | samtools sort -@ "${THREADS}" -o mito.bam
+minimap2 ${MAP_PRESET} -t "${THREADS}" org_refs.fa "${READS}" \
+    | samtools sort -@ "${THREADS}" -o org.bam
 
-samtools index mito.bam
+samtools index org.bam
 
-samtools depth -a mito.bam \
-    | awk '{sum+=$3; n++} END{print sum/n}' \
-    > D_mito.txt
+# Calculate plastid and mitochondrial depths separately from
+# the combined-reference BAM. The plastid reference contains
+# one sequence; all remaining reference sequences are
+# mitochondrial.
+
+samtools depth -a org.bam \
+    | awk -v pid="${PLASTID_ID}" '
+        {
+            if ($1 == pid) {
+                sum_p += $3
+                n_p++
+            } else {
+                sum_m += $3
+                n_m++
+            }
+        }
+        END {
+            print sum_p/n_p > "D_plastid.txt"
+            print sum_m/n_m > "D_mito.txt"
+        }
+    '
 
 D_PLASTID=$(cat D_plastid.txt)
 D_MITO=$(cat D_mito.txt)
@@ -187,23 +210,24 @@ echo "[INFO] D_mito = ${D_MITO}x"
 # STEP 3: BLAST against organelle references
 # -----------------------------
 
-echo "[STEP 3] Running BLASTN against plastid and mitochondrial references"
+echo "[STEP 3] Running BLASTN against combined plastid and mitochondrial references"
 
-makeblastdb -in "${CHLORO}" -dbtype nucl -out plastid_db
+makeblastdb -in org_refs.fa -dbtype nucl -out org_db
 
-blastn -query "${ASM}" -db plastid_db \
-    -out asm_vs_plastid.tsv \
+blastn -query "${ASM}" -db org_db \
+    -out asm_vs_org.tsv \
     -outfmt '6 qseqid sseqid pident length qlen qstart qend evalue bitscore' \
     -evalue 1e-20 \
     -num_threads "${THREADS}"
 
-makeblastdb -in "${MITO}" -dbtype nucl -out mito_db
+# Separate combined BLAST results into plastid and
+# mitochondrial matches based on the reference sequence ID.
 
-blastn -query "${ASM}" -db mito_db \
-    -out asm_vs_mito.tsv \
-    -outfmt '6 qseqid sseqid pident length qlen qstart qend evalue bitscore' \
-    -evalue 1e-20 \
-    -num_threads "${THREADS}"
+awk -v pid="${PLASTID_ID}" '$2 == pid' \
+    asm_vs_org.tsv > asm_vs_plastid.tsv
+
+awk -v pid="${PLASTID_ID}" '$2 != pid' \
+    asm_vs_org.tsv > asm_vs_mito.tsv
 
 awk '{
     q=$1; al[q]+=$4; ql[q]=$5
@@ -358,7 +382,7 @@ else
 fi
 
 if [[ "${REMOVAL_MODE}" == "remove" ]]; then
-    seqtk subseq "${ASM}" keep_ids.txt > nuclear_cleaned.fa
+    seqtk subseq "${ASM}" keep_ids.txt > nuclear_cleaned_v2.fa
 elif [[ "${REMOVAL_MODE}" == "mask" ]]; then
     echo "[FATAL] Masking mode is not implemented in this repository version"
     exit 1
@@ -374,7 +398,7 @@ fi
 echo "[STEP 6] Writing summary"
 
 ORIG_N=$(grep -c "^>" "${ASM}")
-CLEAN_N=$(grep -c "^>" nuclear_cleaned.fa)
+CLEAN_N=$(grep -c "^>" nuclear_cleaned_v2.fa)
 REMOVED_N=$(( ORIG_N - CLEAN_N ))
 
 {
@@ -390,7 +414,7 @@ REMOVED_N=$(( ORIG_N - CLEAN_N ))
     echo "  Mitochondrial mean: ${D_MITO}x"
     echo ""
     echo "Thresholds used:"
-    echo "  Alignment coverage >= ${ALCR_THRESHOLD}"
+    echo "  Summed BLAST alignment-length ratio >= ${ALCR_THRESHOLD}"
     echo "  Plastid SDR >= ${SDR_PLASTID}"
     echo "  Mitochondrial SDR >= ${SDR_MITO}"
     echo "  Ratio to nuclear median >= ${R_NUC_MIN}x"
@@ -399,7 +423,7 @@ REMOVED_N=$(( ORIG_N - CLEAN_N ))
     echo "  contig_decisions.tsv"
     echo "  remove_ids.txt"
     echo "  borderline_ids.txt"
-    echo "  nuclear_cleaned.fa"
+    echo "  nuclear_cleaned_v2.fa"
 } | tee summary.txt
 
 echo "[DONE] Organelle filtering completed"
