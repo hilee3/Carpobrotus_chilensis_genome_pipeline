@@ -1,6 +1,6 @@
 # *Carpobrotus chilensis* Genome Assembly, Annotation, and Comparative Analysis
 
-This repository contains the scripts used to assemble, evaluate, and annotate the *Carpobrotus chilensis* reference genome from PacBio HiFi sequencing and RNA-seq data. It also includes scripts used for reannotation of the published *C. edulis* genome, orthology inference, pairwise dN/dS analysis, and GO enrichment analysis.
+This repository contains the scripts used for assembly, quality assessment, and annotation of the *Carpobrotus chilensis* draft genome using PacBio HiFi sequencing and RNA-seq data. It also includes scripts used for reannotation of the published *C. edulis* genome, orthology inference, pairwise dN/dS analysis, and GO enrichment analysis.
 
 ## Repository structure
 
@@ -24,7 +24,7 @@ This repository contains the scripts used to assemble, evaluate, and annotate th
   * Functional annotation of predicted *C. chilensis* proteins using eggNOG-mapper.
 
 * **07_C_edulis_reannotation**
-  * Reannotation of the published *C. edulis* nuclear genome using EDTA and RepeatMasker for repeat annotation and soft-masking, two publicly available RNA-seq datasets aligned with HISAT2, and BRAKER3 gene prediction using Viridiplantae protein evidence.
+  * Reannotation of the published *C. edulis* nuclear genome using EDTA and RepeatMasker for repeat annotation and soft-masking, two publicly available RNA-seq datasets aligned with HISAT2, and BRAKER3 gene prediction using Viridiplantae protein evidence from OrthoDB v12.
   * Representative longest isoforms were selected with AGAT, protein and CDS sequences were extracted with gffread, and the resulting annotation was evaluated using annotation statistics, protein-mode BUSCO, and eggNOG-mapper.
 
 * **08_Orthology**
