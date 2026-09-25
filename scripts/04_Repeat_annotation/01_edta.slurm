@@ -15,6 +15,10 @@ ulimit -n 65535
 # Edit these paths before running.
 WORKDIR="/path/to/output/edta"
 GENOME_SRC="/path/to/assembly_split.fa"
+
+# CDS from a BRAKER annotation of the preceding assembly version.
+# The initial EDTA run was performed without CDS input; CDS from preceding
+# BRAKER annotations was supplied to EDTA in subsequent annotation rounds.
 CDS_FASTA="/path/to/braker.longest_isoform.gffread.cds.fa"
 
 THREADS="${SLURM_CPUS_PER_TASK:-16}"

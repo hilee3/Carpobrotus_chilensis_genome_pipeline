@@ -14,8 +14,8 @@ set -euo pipefail
 #
 # Coverage-based sequence classification was not used.
 
-ASM="/path/to/hifiasm_primary_assembly.fa"
-PREFIX="pb.083025"
+ASM="/path/to/chilensis_assembly.asm.bp.p_ctg.fa"
+PREFIX="pb"
 THREADS="${SLURM_CPUS_PER_TASK:-32}"
 
 # Split the primary assembly.

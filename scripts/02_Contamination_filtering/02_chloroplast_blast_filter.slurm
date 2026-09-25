@@ -32,7 +32,7 @@ set -euo pipefail
 # Inputs
 # -----------------------------
 # Edit these paths before running.
-CP_FASTA="/path/to/assembled_chloroplast_genome.fa"
+CP_FASTA="/path/to/carp_plastid.pltd.ctg.fasta"  # C. chilensis chloroplast FASTA generated with Oatk
 NUC_FASTA="/path/to/nuclear_cleaned_v2.fa"
 
 PREFIX="cp_cov_filter"

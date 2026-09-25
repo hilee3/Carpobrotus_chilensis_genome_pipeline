@@ -8,13 +8,18 @@
 #SBATCH --output=Hifiasm_chilensis.out
 #SBATCH --error=Hifiasm_chilensis.err
 
-# De novo assembly of the C. chilensis PacBio HiFi reads using hifiasm.
+# De novo assembly of C. chilensis PacBio HiFi reads using hifiasm.
 # Replace the input path below with the local path to the HiFi FASTQ file.
 
 READS="/path/to/pacbio_hifi_reads.fastq"
-PREFIX="chilensis_assembly_l0_031025.asm"
+PREFIX="chilensis_assembly.asm"
 
 hifiasm \
     -o "${PREFIX}" \
     -t 32 \
     "${READS}"
+
+# Convert the primary contig assembly from GFA to FASTA.
+awk '/^S/{print ">"$2; print $3}' \
+    "${PREFIX}.bp.p_ctg.gfa" \
+    > "${PREFIX}.bp.p_ctg.fa"

@@ -37,7 +37,7 @@ set -euo pipefail
 # Inputs
 # -----------------------------
 # Edit these paths before running.
-ASM="/path/to/purge_dups_filtered_primary_assembly.fa"
+ASM="/path/to/purged_primary.fa"
 READS="/path/to/pacbio_hifi_reads.fastq.gz"
 
 CHLORO="/path/to/C_edulis_plastid.fa"
